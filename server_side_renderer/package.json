@@ -1,0 +1,37 @@
+{
+  "name": "server_side_renderer",
+  "version": "1.0.0",
+  "description": "Config based OpenFaas function to create html for server side rendering in SPA apps",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "./node_modules/eslint/bin/eslint.js . --fix"
+  },
+  "dependencies": {
+    "@angular/animations": "^6.1.7",
+    "@angular/common": "^6.1.7",
+    "@angular/compiler": "^6.1.7",
+    "@angular/core": "^6.1.7",
+    "@angular/http": "^6.1.7",
+    "@angular/platform-browser": "^6.1.7",
+    "@angular/platform-browser-dynamic": "^6.1.7",
+    "@angular/platform-server": "^6.1.7",
+    "@nguniversal/module-map-ngfactory-loader": "^6.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "minio": "^7.0.1",
+    "q": "^1.5.1",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.3.2",
+    "webpack": "^4.19.1",
+    "zone.js": "^0.8.26"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-config-google": "^0.10.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "prettier": "^1.14.3"
+  },
+  "author": "Gaurang Dave",
+  "license": "ISC"
+}
