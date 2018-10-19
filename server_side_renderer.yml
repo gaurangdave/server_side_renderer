@@ -1,0 +1,18 @@
+provider:
+  name: faas
+  gateway: http://127.0.0.1:8080
+
+functions:
+  server_side_renderer:
+    lang: node-armhf
+    handler: ./server_side_renderer
+    image: server_side_renderer:latest
+    environment:
+      combine_output: false
+      content_type: text/html
+      sleep_duration: 10
+      read_timeout: 15
+      write_timeout: 15
+      exec_timeout: 15
+    secrets:
+      - minio_access

@@ -6,25 +6,21 @@ const vm = require('vm');
 const fs = require('fs');
 const Q = require('q');
 const path = require('path');
+const utils = require('../utils');
 
-const getMainJS = config => {
-    /**
-     *  TODO read params from config.
-     */
+const getMainJS = bucket => {
     const params = {
-        bucket: 'node-hello',
+        bucket,
         object: 'main.js',
     };
 
     return minioService.getFile(params);
 };
 
-const getTemplate = config => {
-    /**
-     *  TODO read params from config.
-     */
+const getTemplate = bucket => {
+
     const params = {
-        bucket: 'node-hello',
+        bucket,
         object: 'index.html',
     };
 
@@ -39,23 +35,34 @@ const getRenderScript = () => {
 };
 
 const createServerSideTemplate = async config => {
-    const mainJS = await getMainJS(config);
-    const template = await getTemplate(config);
-    const renderer = getRenderScript();
-
-    /**
-     * 1. Run mainJS and map required objects to sandbox.
-     * 2. Map template to sandbox.
-     * 3. Run the renderer script in sandbox context.
-     */
-    const sandbox = {
-        require: require,
-        console: console,
-        exports,
-        template,
-    };
+    const {
+        bucket,
+        url
+    } = config;    
 
     try {
+        
+        const mainJS = await getMainJS(bucket);
+        const template = await getTemplate(bucket);
+        const renderer = getRenderScript();
+
+
+        if(!mainJS || !template || !renderer){
+            return utils.getDefaultView();  
+        }
+
+        /**
+         * 1. Run mainJS and map required objects to sandbox.
+         * 2. Map template to sandbox.
+         * 3. Run the renderer script in sandbox context.
+         */
+        const sandbox = {
+            require: require,
+            console: console,
+            exports,
+            template,
+        };
+
         vm.createContext(sandbox);
 
         vm.runInNewContext(mainJS, sandbox);
@@ -65,10 +72,9 @@ const createServerSideTemplate = async config => {
         sandbox.LAZY_MODULE_MAP = sandbox.exports.LAZY_MODULE_MAP;
 
         vm.runInNewContext(renderer, sandbox);
-        return await sandbox.createServerSideTemplate();
+        return await sandbox.createServerSideTemplate(url);
     } catch (e) {
-        console.error('Error : ', e);
-        throw e;
+        return utils.getDefaultView();
     }
 };
 

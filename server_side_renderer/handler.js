@@ -2,6 +2,10 @@
 
 const angularSSR = require('./lib/angular/angular.ssr');
 const querystring = require('querystring');
+const fs = require('fs');
+const path = require('path');
+const utils = require('./lib/utils');
+
 
 /**
  * Main SSR handler function
@@ -14,16 +18,28 @@ module.exports = async (context, callback) => {
      * 2. Based on the `framework` in the config calls the corresponding engine.
      */
 
-    // try {
-    //     const html = await angularSSR.createServerSideTemplate();
-    //     callback(html);
-    // } catch (e) {
-    //     // TODO handle errors gracefully
-    //     callback(e);
-    // }
+    try {
+        const app = process.env.Http_Query;
+        if(app){
+            const params = querystring.parse(app.toString());
+            const {
+                app:bucket,
+                url = "/"
+            } = params;
+            
+            if(!bucket) {
+                return callback(null, utils.getDefaultView());
+            }
 
-    const app = process.env.Http_Query;
-    // const url = process.env.Http_Query.url || 'n/a';
-    const params = querystring.parse(app.toString());
-    callback(undefined, params.app + ":" + process.version);
+            const html = await angularSSR.createServerSideTemplate({bucket, url});
+            return callback(null, html);
+        }
+        else {
+            return callback(null, utils.getDefaultView());
+        }
+
+    } catch (e) {
+        // TODO log errors. 
+        return callback(null, utils.getDefaultView());
+    }
 };

@@ -11,7 +11,7 @@ const enableProdMode = require('@angular/core').enableProdMode;
  *  Function to create server side template.
  *  @return Promise
  */
-function createServerSideTemplate() {
+function createServerSideTemplate(url) {
     // Faster server renders w/ Prod mode (dev mode never needed)
     enableProdMode();
     /**
@@ -24,7 +24,7 @@ function createServerSideTemplate() {
         // Our index.html
         document: template,
         // TODO make URL param dynamic.
-        url: '/',
+        url,
         // TODO Figure this out.
         // DI so that we can get lazy-loading to work differently (since we need it to just instantly render it)
         // extraProviders: [{}]

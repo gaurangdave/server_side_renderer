@@ -1,5 +1,4 @@
-FROM arm32v6/alpine:3.6
-
+FROM arm32v6/alpine:3.8
 RUN apk add --no-cache nodejs nodejs-npm ca-certificates
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
