@@ -1,3 +1,5 @@
+![OpenFaaS Logo](https://blog.alexellis.io/content/images/2017/08/faas_side.png)
+
 # OpenFaas function for Server Side Rendering
 
 ## Why?
