@@ -1,0 +1,42 @@
+{
+  "name": "server_side_renderer",
+  "version": "1.0.0",
+  "description": "OpenFaas function for server side rendering",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo testing",
+    "lint": "./node_modules/eslint/bin/eslint.js . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaurangdave/server_side_renderer.git"
+  },
+  "keywords": [
+    "OpenFaas",
+    "Server",
+    "Side",
+    "Rendering",
+    "Node",
+    "JS",
+    "Angular",
+    "JS",
+    "Faas",
+    "React",
+    "JS",
+    "Vue",
+    "JS"
+  ],
+  "author": "Gaurang Dave",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaurangdave/server_side_renderer/issues"
+  },
+  "homepage": "https://github.com/gaurangdave/server_side_renderer#readme",
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-config-google": "^0.10.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "prettier": "^1.14.3"
+  }
+}
