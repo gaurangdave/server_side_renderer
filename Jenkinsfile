@@ -35,6 +35,13 @@ pipeline {
         }       
       }
     }
+    stage('build'){
+      steps {
+        sh '''
+          echo 'building the image'
+        '''
+      }
+    }
   }
   post {
         always {
