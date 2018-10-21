@@ -18,7 +18,7 @@ else if(existsSync('/var/openfaas/secrets/minio_access')){
     minioClientConfig = JSON.parse(readFileSync('/var/openfaas/secrets/minio_access'));
 }
 else {
-    minioClientConfig = require('../../minio.config.json');
+    minioClientConfig = require('./minio.config.json');
 }
 
 
