@@ -6,7 +6,7 @@ functions:
   server_side_renderer:
     lang: node-armhf
     handler: ./server_side_renderer
-    image: gaurangvdave/server_side_renderer:0.0.2
+    image: gaurangvdave/server_side_renderer:0.0.3
     environment:
       combine_output: false
       content_type: text/html

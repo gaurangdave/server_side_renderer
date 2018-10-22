@@ -22,13 +22,17 @@ module.exports = async (context, callback) => {
         const app = process.env.Http_Query;
         if(app){
             const params = querystring.parse(app.toString());
-            const {
+            let {
                 app:bucket,
                 url = "/"
             } = params;
             
             if(!bucket) {
                 return callback(null, utils.getDefaultView());
+            }
+
+            if(url && !url.startsWith("/")){
+                url = `/${url}`;
             }
 
             const html = await angularSSR.createServerSideTemplate({bucket, url});
