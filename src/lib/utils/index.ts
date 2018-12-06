@@ -1,4 +1,3 @@
-"use strict";
 const defaultHTML = `
 <!DOCTYPE html>
 <html>
@@ -16,9 +15,11 @@ const defaultHTML = `
 
 </html>
 `;
+
 const getDefaultView = () => {
     return defaultHTML;
 };
+
 module.exports = {
     getDefaultView,
 };

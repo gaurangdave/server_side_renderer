@@ -6,13 +6,14 @@ functions:
   server_side_renderer:
     lang: node-armhf
     handler: ./server_side_renderer
-    image: gaurangvdave/server_side_renderer:0.0.3
+    image: gaurangvdave/server_side_renderer:0.0.4
     environment:
       combine_output: false
       content_type: text/html
       sleep_duration: 10
       read_timeout: 15
       write_timeout: 15
-      exec_timeout: 15
+      exec_timeout: 15   
     secrets:
-      - minio_access
+     - minio_access
+     

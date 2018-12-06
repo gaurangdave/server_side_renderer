@@ -1,5 +1,6 @@
 build/
 **/node_modules/**
 .DS_Store
-**/minio.config.json
+**/minio.config.ts
+**/minio.config.js
 package-lock.json
