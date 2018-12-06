@@ -1,5 +1,5 @@
 FROM arm32v6/alpine:3.8
-RUN apk add --no-cache nodejs nodejs-npm ca-certificates
+RUN apk add --no-cache nodejs nodejs-npm ca-certificates git
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
     && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.6/fwatchdog-armhf > /usr/bin/fwatchdog \
