@@ -86,9 +86,10 @@ const getCachedVersion = (params) => __awaiter(this, void 0, void 0, function* (
 });
 const generateDynamicHTML = (params) => __awaiter(this, void 0, void 0, function* () {
     const { url, configuration } = params;
+    let template = null;
     try {
         const mainJS = yield getMainJS(configuration);
-        const template = yield getTemplate(configuration);
+        template = yield getTemplate(configuration);
         const renderer = getRenderScript();
         if (!mainJS || !template || !renderer) {
             _logger.error('main js, template or renderer missing');
@@ -112,7 +113,8 @@ const generateDynamicHTML = (params) => __awaiter(this, void 0, void 0, function
         return yield sandbox.createServerSideTemplate(url);
     }
     catch (e) {
-        return null;
+        console.log('Error in dynamic html : ', e);
+        return template;
     }
 });
 exports.generateHTML = (params) => __awaiter(this, void 0, void 0, function* () {
@@ -123,7 +125,7 @@ exports.generateHTML = (params) => __awaiter(this, void 0, void 0, function* () 
     }
     const { isCached } = configuration;
     if (isCached) {
-        return (yield getCachedVersion(params)) || utils.getDefaultView();
+        return (yield generateDynamicHTML(params)) || utils.getDefaultView();
     }
     else {
         return (yield generateDynamicHTML(params)) || utils.getDefaultView();
