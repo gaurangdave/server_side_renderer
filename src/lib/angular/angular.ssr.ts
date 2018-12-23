@@ -126,11 +126,11 @@ const getCachedVersion = async (params: GenerateHtmlParams) => {
  */
 const generateDynamicHTML = async (params: GenerateHtmlParams) => {
     const { url, configuration } = params;
-
+    let template = null;
     try {
         // TODO instead of waiting for each resource fire multiple requests.
         const mainJS = await getMainJS(configuration);
-        const template = await getTemplate(configuration);
+        template = await getTemplate(configuration);
         const renderer = getRenderScript();
 
         if (!mainJS || !template || !renderer) {
@@ -164,7 +164,8 @@ const generateDynamicHTML = async (params: GenerateHtmlParams) => {
         vm.runInNewContext(renderer, sandbox);
         return await sandbox.createServerSideTemplate(url);
     } catch (e) {
-        return null;
+        console.log('Error in dynamic html : ', e);
+        return template;
     }
 };
 
@@ -181,7 +182,7 @@ export const generateHTML = async (params: GenerateHtmlParams) => {
     const { isCached } = configuration;
 
     if (isCached) {
-        return (await getCachedVersion(params)) || utils.getDefaultView();
+        return (await generateDynamicHTML(params)) || utils.getDefaultView();
     } else {
         return (await generateDynamicHTML(params)) || utils.getDefaultView();
     }

@@ -27,10 +27,11 @@ describe('test server side rendering', () => {
 
         const html = await angularSSR.generateHTML({
             bucketName: 'theboredengineer',
-            url: '/blogs',
+            url: '/games/snake',
             configuration
         });
 
+        console.log(html);
         expect(html).toBeDefined();
     });
 });

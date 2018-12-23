@@ -7,7 +7,7 @@ const renderModuleFactory = require('@angular/platform-server')
     .renderModuleFactory;
 const enableProdMode = require('@angular/core').enableProdMode;
 // Import module map for lazy loading
-// const provideModuleMap = require('@nguniversal/module-map-ngfactory-loader').provideModuleMap;
+const provideModuleMap = require('@nguniversal/module-map-ngfactory-loader').provideModuleMap;
 // const AppServerModuleNgFactory: any =
 //     (this)['AppServerModuleNgFactory'] || {};
 
@@ -27,16 +27,18 @@ function createServerSideTemplate(url: string) {
      */
 
     try {
-        return renderModuleFactory(this.AppServerModuleNgFactory, {
+        const html =  renderModuleFactory(this.AppServerModuleNgFactory, {
             // Our index.html
             document: this.template,
             // TODO make URL param dynamic.
             url,
             // TODO Figure this out.
             // DI so that we can get lazy-loading to work differently (since we need it to just instantly render it)
-            // extraProviders: [{}]
-        });        
+            extraProviders: provideModuleMap(this.LAZY_MODULE_MAP)
+        });
+        return html;
     } catch (error) {
+        // console.log('current error');
         console.error('Error in render script', error);
     }
 
